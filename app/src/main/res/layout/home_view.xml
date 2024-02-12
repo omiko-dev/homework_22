@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/storyRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:id="@+id/storyLoader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/postRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:id="@+id/postLoader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
