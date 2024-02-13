@@ -21,11 +21,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         bindHomeAdapter()
     }
 
-    override fun event() {
-        with(viewModel) {
-            onEvent(HomeEvent.GetStoryList)
-            onEvent(HomeEvent.GetHomeList)
-        }
+    override fun event() = with(viewModel) {
+        onEvent(HomeEvent.GetStoryList)
+        onEvent(HomeEvent.GetHomeList)
     }
 
     override fun observe() {
@@ -58,7 +56,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.postListStateFlow.collect { state ->
                     homeAdapter.setPostState(state)
-
                 }
             }
         }

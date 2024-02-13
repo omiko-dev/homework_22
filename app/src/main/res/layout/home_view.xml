@@ -18,7 +18,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/postRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:clipToPadding="false"/>
 
     <ProgressBar
         android:id="@+id/postLoader"
