@@ -6,23 +6,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homework_22.databinding.HomeViewBinding
-import com.example.homework_22.presentation.state.PostState
-import com.example.homework_22.presentation.state.StoryState
+import com.example.homework_22.presentation.model.PostUI
+import com.example.homework_22.presentation.state.PostListState
+import com.example.homework_22.presentation.state.StoryListState
 
 class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHolder>() {
 
     private lateinit var storyAdapter: StoryCardListAdapter
     private lateinit var postAdapter: PostCardListAdapter
-    private var postState: PostState = PostState()
-    private var storyState: StoryState = StoryState()
+    private var postListState: PostListState = PostListState()
+    private var storyListState: StoryListState = StoryListState()
 
+    lateinit var onClick: (PostUI) -> Unit
 
     inner class HomeViewHolder(private val binding: HomeViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             bindStoryAdapter()
             bindPostAdapter()
+        }
 
+        fun listener(){
+            postAdapter.onClick = {
+                onClick(it)
+            }
         }
 
         private fun bindStoryAdapter() = with(binding) {
@@ -31,10 +38,10 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHol
             storyRecycler.layoutManager =
                 LinearLayoutManager(root.context, LinearLayoutManager.HORIZONTAL, false)
 
-            storyState.storyList?.let {
+            storyListState.storyList?.let {
                 storyAdapter.submitList(it)
             }
-            if (storyState.loader) {
+            if (storyListState.loader) {
                 storyLoader.visibility = View.VISIBLE
             } else {
                 storyLoader.visibility = View.GONE
@@ -47,10 +54,10 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHol
                 postRecycler.adapter = postAdapter
                 postRecycler.layoutManager = LinearLayoutManager(root.context)
             }
-            postState.postList?.let {
+            postListState.postList?.let {
                 postAdapter.submitList(it)
             }
-            if (postState.loader) {
+            if (postListState.loader) {
                 postLoader.visibility = View.VISIBLE
             } else {
                 postLoader.visibility = View.GONE
@@ -74,16 +81,19 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHol
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        holder.bind()
+        with(holder){
+            bind()
+            listener()
+        }
     }
 
-    fun setPostState(state: PostState) {
-        postState = state
+    fun setPostState(state: PostListState) {
+        postListState = state
         notifyDataSetChanged()
     }
 
-    fun setStoryState(state: StoryState) {
-        storyState = state
+    fun setStoryState(state: StoryListState) {
+        storyListState = state
         notifyDataSetChanged()
     }
 }

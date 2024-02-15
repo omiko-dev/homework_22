@@ -25,4 +25,13 @@ class PostRepositoryImpl @Inject constructor(
                 }
             }
         }
+
+    override suspend fun getPostById(id: Int): Flow<Resource<PostModel>> =
+        handleResource.handleResource {
+            postService.getPostById(id)
+        }.map { resource ->
+            resource.resourceMapper { postDto ->
+                postDto.toDomain()
+            }
+        }
 }

@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="10dp"
-    android:layout_marginTop="14dp"
-    android:background="@drawable/post_card_bg"
-    android:paddingVertical="20dp">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="@color/bg_color"
+    tools:context=".presentation.screen.post.PostFragment">
+
+    <ProgressBar
+        android:id="@+id/loader"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivProfile"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="20dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBack"
         app:shapeAppearanceOverlay="@style/Circular" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -47,68 +68,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="9dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="20dp"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPostDate" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivPostOne"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toStartOf="@id/ivPostTwo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDesc"
-        app:shapeAppearanceOverlay="@style/Radius" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivPostTwo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="20dp"
-        android:padding="5dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/ivPostThree"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivPostOne"
-        app:layout_constraintTop_toTopOf="@id/ivPostOne"
-        app:shapeAppearanceOverlay="@style/Radius" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivPostThree"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="20dp"
-        android:padding="5dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@id/ivPostOne"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/ivPostTwo"
-        app:shapeAppearanceOverlay="@style/Radius" />
-
-
-    <View
-        android:id="@+id/imgTopLine"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@color/card_line"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/ivPostOne" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgTopLine"
-        app:srcCompat="@drawable/ic_message" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDesc"
+        app:srcCompat="@drawable/ic_message"
+        tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCommentNum"
@@ -138,11 +113,11 @@
         android:id="@+id/imgLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toStartOf="@id/tvLikeNum"
-        app:layout_constraintTop_toBottomOf="@id/imgTopLine"
-        app:srcCompat="@drawable/ic_heart" />
+        app:layout_constraintTop_toTopOf="@+id/tvComment"
+        app:srcCompat="@drawable/ic_heart"
+        tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvLikeNum"
@@ -172,12 +147,11 @@
         android:id="@+id/ivShare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="18dp"
         android:layout_marginEnd="9dp"
         app:layout_constraintEnd_toStartOf="@id/tvShare"
-        app:layout_constraintTop_toBottomOf="@id/imgTopLine"
-        app:srcCompat="@drawable/ic_share" />
+        app:layout_constraintTop_toTopOf="@+id/tvLike"
+        app:srcCompat="@drawable/ic_share"
+        tools:ignore="MissingConstraints" />
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -207,8 +181,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivBottomLine"
         app:shapeAppearanceOverlay="@style/Circular"
@@ -239,5 +212,6 @@
         app:layout_constraintTop_toTopOf="@+id/fieldComment"
         android:layout_marginEnd="15dp"
         app:srcCompat="@drawable/ic_attachment" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

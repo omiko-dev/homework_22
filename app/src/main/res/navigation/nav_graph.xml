@@ -3,11 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/postFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/postFragment"
-        android:name="com.example.homework_22.presentation.screen.post.HomeFragment"
+        android:id="@+id/homeFragment"
+        android:name="com.example.homework_22.presentation.screen.home.HomeFragment"
         android:label="fragment_post"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.example.homework_22.presentation.screen.post.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>
