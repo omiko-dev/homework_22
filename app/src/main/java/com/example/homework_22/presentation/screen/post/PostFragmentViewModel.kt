@@ -3,7 +3,7 @@ package com.example.homework_22.presentation.screen.post
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.homework_22.data.common.Resource
-import com.example.homework_22.domain.usecase.remote.GetRemoteUseCase
+import com.example.homework_22.domain.usecase.remote.GetPostByIdUseCase
 import com.example.homework_22.presentation.mapper.toPresenter
 import com.example.homework_22.presentation.screen.post.event.PostEvent
 import com.example.homework_22.presentation.state.PostState
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PostFragmentViewModel @Inject constructor(
-    private val getRemoteUseCase: GetRemoteUseCase,
+    private val getPostByIdUseCase: GetPostByIdUseCase
 ) : ViewModel() {
 
     private val _postStateFlow = MutableStateFlow(PostState())
@@ -36,7 +36,7 @@ class PostFragmentViewModel @Inject constructor(
 
     private fun getPost(id: Int) {
         viewModelScope.launch {
-            getRemoteUseCase.getPostByIdUseCase(id = id).collect { resource ->
+            getPostByIdUseCase(id = id).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         _postStateFlow.update { state ->

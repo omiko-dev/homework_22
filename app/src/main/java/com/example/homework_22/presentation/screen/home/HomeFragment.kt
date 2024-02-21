@@ -24,7 +24,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun event() = with(viewModel) {
         onEvent(HomeEvent.GetStoryList)
-        onEvent(HomeEvent.GetHomeList)
+        onEvent(HomeEvent.GetPostList)
     }
 
     override fun observe() {

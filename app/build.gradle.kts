@@ -23,6 +23,10 @@ android {
     }
 
     buildTypes {
+
+        testOptions {
+            unitTests.isReturnDefaultValues = true
+        }
         debug {
             buildConfigField("String", "BASE_URL", "\"https://run.mocky.io/v3/\"")
         }
@@ -72,7 +76,9 @@ dependencies {
 
     // dagger hilt
     implementation("com.google.dagger:hilt-android:2.50")
-    kapt ("com.google.dagger:hilt-compiler:2.50")
+    kapt("com.google.dagger:hilt-compiler:2.50")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.50")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.50")
 
     // navGraph
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
@@ -82,7 +88,15 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
     implementation("com.google.firebase:firebase-analytics-ktx:21.5.1")
     implementation("com.google.firebase:firebase-messaging-ktx:23.4.1")
+
+    // testing
+    testImplementation("org.mockito:mockito-core:4.0.0")
+    testImplementation("org.mockito:mockito-inline:4.0.0")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+    testImplementation("com.google.truth:truth:1.1.5")
 }
+
 
 kapt {
     correctErrorTypes = true

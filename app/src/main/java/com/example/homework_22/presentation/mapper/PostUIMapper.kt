@@ -7,7 +7,7 @@ import com.example.homework_22.presentation.model.PostUI
 
 fun PostModel.toPresenter() =
     PostUI(
-        id = id,
+        id = id.toInt(),
         images = images,
         title = title,
         comments = comments,

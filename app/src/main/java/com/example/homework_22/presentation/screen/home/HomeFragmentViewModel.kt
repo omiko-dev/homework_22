@@ -3,7 +3,8 @@ package com.example.homework_22.presentation.screen.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.homework_22.data.common.Resource
-import com.example.homework_22.domain.usecase.remote.GetRemoteUseCase
+import com.example.homework_22.domain.usecase.remote.GetPostListUseCase
+import com.example.homework_22.domain.usecase.remote.GetStoryListUseCase
 import com.example.homework_22.presentation.mapper.toPresenter
 import com.example.homework_22.presentation.screen.home.event.HomeEvent
 import com.example.homework_22.presentation.state.PostListState
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeFragmentViewModel @Inject constructor(
-    private val getRemoteUseCase: GetRemoteUseCase,
+    private val getStoryListUseCase: GetStoryListUseCase,
+    private val getPostListUseCase: GetPostListUseCase
 ) : ViewModel() {
 
     private val _postListStateFlow = MutableStateFlow(PostListState())
@@ -33,7 +35,7 @@ class HomeFragmentViewModel @Inject constructor(
 
     fun onEvent(event: HomeEvent) {
         when (event) {
-            is HomeEvent.GetHomeList -> getPostList()
+            is HomeEvent.GetPostList -> getPostList()
             is HomeEvent.GetStoryList -> getStoryList()
             is HomeEvent.NavigateToPost -> navigateToPost(event.id)
         }
@@ -41,7 +43,7 @@ class HomeFragmentViewModel @Inject constructor(
 
     private fun getPostList() {
         viewModelScope.launch {
-            getRemoteUseCase.getPostListUseCase().collect { resource ->
+            getPostListUseCase().collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         _postListStateFlow.update { state ->
@@ -73,7 +75,7 @@ class HomeFragmentViewModel @Inject constructor(
 
     private fun getStoryList() {
         viewModelScope.launch {
-            getRemoteUseCase.getStoryListUseCase().collect { resource ->
+            getStoryListUseCase().collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         _storyListStateFlow.update { state ->

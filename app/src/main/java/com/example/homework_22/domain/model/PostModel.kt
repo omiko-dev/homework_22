@@ -1,7 +1,7 @@
 package com.example.homework_22.domain.model
 
 data class PostModel(
-    val id: String,
+    val id: Int,
     val images: List<String>?,
     val title: String,
     val comments: Int,

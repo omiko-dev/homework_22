@@ -6,7 +6,7 @@ import com.example.homework_22.domain.model.PostOwnerModel
 
 fun PostDto.toDomain(): PostModel {
     return PostModel(
-        id = id,
+        id = id.toInt(),
         images = images,
         title = title,
         comments = comments,
